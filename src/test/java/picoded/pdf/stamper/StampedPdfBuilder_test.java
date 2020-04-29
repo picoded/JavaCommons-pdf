@@ -12,12 +12,12 @@ import picoded.core.conv.GenericConvert;
 import picoded.core.file.*;
 import picoded.pdf.stamper.*;
 
-public class _TestRunner {
+public class StampedPdfBuilder_test {
 	private File getFile(String fileName){
 		return new File("./test-files/test-specific/pdfstamper/unit_test_1/" + fileName);
 	}
 	@Test
-	public void test2() throws Exception {
+	public void test() throws Exception {
 		
 		File inputPdf = getFile("test.pdf");
 		
@@ -30,7 +30,7 @@ public class _TestRunner {
 		Map<String, Object> templateData = GenericConvert.toStringMap(dataJsonString);
 		
 		//output file spec
-		File outputFile = new File("./test-files/test-specific/pdfstamper/unit_test_1/result" , "test-1.pdf");
+		File outputFile = new File("./test-files/test-specific/pdfstamper/unit_test_1/result" , "test-3.pdf");
 		
 		//perform stamping
 		try{

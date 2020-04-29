@@ -76,8 +76,18 @@ dependencies {
 	compileOnly fileTree(dir: './JavaCommons-core/build/libs', include: ['*-all.jar']) 
 	testImplementation fileTree(dir: './JavaCommons-core/build/libs', include: ['*-all.jar']) 
 
+
 	// This dependencies is exported to consumers, that is to say found on their compile classpath.
 	//-------------------------------------------------------------------------------------------------------------------
+
+	// iText 
+	api files("./lib/iText.jar")
+
+	//batik SVG
+	api fileTree(dir: './lib/batik/', include: ['*.jar']) 
+
+	// https://mvnrepository.com/artifact/org.w3c.dom/svg
+	implementation 'org.kie.modules:org-apache-batik:6.1.0.Beta1'
 
 	// // Connection pooling
 	// api "com.zaxxer:HikariCP:3.1.0" // connection pooling
@@ -332,7 +342,7 @@ task source(dependsOn: src)
 task compile(dependsOn: src) 
 
 // Forcing srcBeautify on src step
-src.dependsOn srcBeautify
+//src.dependsOn srcBeautify
 
 //----------------------------------------------------------------
 //
@@ -368,6 +378,13 @@ task buildAll {
 	dependsOn jar
 	dependsOn shadowJar
 	dependsOn fatJar
+}
+
+task gogo {
+	description = "src and test"
+
+	dependsOn src
+	dependsOn test
 }
 
 task testAndBuildAll {

@@ -7,7 +7,7 @@ import java.util.Calendar;
 import java.text.DateFormatSymbols;
 //import org.apache.commons.lang3.ArrayUtils;
 
-import com.mysql.jdbc.StringUtils;
+//import com.mysql.jdbc.StringUtils;
 
 
 /**
@@ -106,7 +106,7 @@ public class CustomDateConv {
 		/// I return string to that i can return null if an error happened during conversion
 		///
 		public static String toMillisecondsFormat(String inDate, ISODateFormat currentDateFormat, String separator) {
-			if (StringUtils.isNullOrEmpty(inDate)) {
+			if ( inDate == null || inDate.length() <= 0 ) {
 				return null;
 			}
 

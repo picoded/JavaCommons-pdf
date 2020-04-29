@@ -2,6 +2,7 @@ package picoded.pdf.stamper.element;
 
 import java.util.Map;
 import java.io.*;
+import java.lang.Class;
 
 import java.awt.geom.Rectangle2D;
 import java.awt.Graphics2D;
@@ -110,17 +111,22 @@ public class StampedSignature extends StampedElement{
 	}
 	
 	private SVGDocument getSVGDocument(String svgURI) throws Exception {
-		SAXSVGDocumentFactory svgDomFactory = new SAXSVGDocumentFactory(null);
-		SVGDocument svgDoc = svgDomFactory.createSVGDocument(svgURI);
-		
-		float originalSVGWidth = Float.parseFloat(svgDoc.getDocumentElement().getAttribute("width").replaceAll("[^0-9.,]",""));
-		float originalSVGHeight = Float.parseFloat(svgDoc.getDocumentElement().getAttribute("height").replaceAll("[^0-9.,]",""));
-		
-		svgDoc.getDocumentElement().setAttribute("viewBox", "0 0 "+originalSVGWidth+" "+originalSVGHeight);
-		svgDoc.getDocumentElement().setAttribute("width", "" + width);
-		svgDoc.getDocumentElement().setAttribute("height", "" + height);
-		
-		return svgDoc;
+		try {
+			SAXSVGDocumentFactory svgDomFactory = new SAXSVGDocumentFactory(null);
+			System.out.println("getSvgDoc");
+			SVGDocument svgDoc = svgDomFactory.createSVGDocument(svgURI);
+			float originalSVGWidth = Float.parseFloat(svgDoc.getDocumentElement().getAttribute("width").replaceAll("[^0-9.,]",""));
+			float originalSVGHeight = Float.parseFloat(svgDoc.getDocumentElement().getAttribute("height").replaceAll("[^0-9.,]",""));
+			
+			svgDoc.getDocumentElement().setAttribute("viewBox", "0 0 "+originalSVGWidth+" "+originalSVGHeight);
+			svgDoc.getDocumentElement().setAttribute("width", "" + width);
+			svgDoc.getDocumentElement().setAttribute("height", "" + height);
+			
+			return svgDoc;
+		} catch (Exception ex) {
+			System.out.println(ex);
+		}
+		return new SAXSVGDocumentFactory(null).createSVGDocument("haha");
 	}
 	
 	// private byte[] padOrResize(byte[] imageBytes) throws Exception {
