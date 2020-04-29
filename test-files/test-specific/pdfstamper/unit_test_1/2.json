@@ -1,0 +1,80 @@
+[
+	{
+		"type":"date",
+		"key":"test_date",
+		"x":"100",
+		"y":"710",
+		"textsize":"14",
+		"format":"ddmmyyyy",
+		"separator":" ",
+		"formatMonthAsMMM":true
+	},	
+	{
+		"type":"image",
+		"key":"test_img",
+		"width":"50",
+		"height":"50",
+		"x":"100",
+		"y":"600",
+		"src": "test-files/test-specific/pdfstamper/unit_test_1/grim.png"
+	},
+	{
+		"type":"radio",
+		"key":"test_radio",
+		"options":{
+			"radio_val1":{
+				"x":"161",
+				"y":"500",
+				"width":"15",
+				"height":"16",
+				"colour":"249,157,27"
+			},
+			"radio_val2":{
+				"x":"298",
+				"y":"500",
+				"width":"15",
+				"height":"16",
+				"colour":"249,157,27"
+			}
+		}
+	},
+	{
+		"type" : "signature",
+		"key" : "test_signature",
+		"x":"100",
+		"y":"350",
+		"width" :"70",
+		"height" :"70"
+	},
+	{
+		"type":"textarea",
+		"mode":"boundingbox",
+		"key":"test_textarea",
+		"x":"50",
+		"y":"200",
+		"boxwidth":"516",
+		"boxheight":"82",
+		"lineheight":"15",
+		"debug":false
+	},
+	{
+		"type":"stampedtextconditionalposition",
+		"key":"test_conditionaltext",
+		"options":{
+			"cond1":{
+				"x":"100",
+				"y":"100",
+				"width":"20",
+				"height":"8",
+				"colour":"249,157,27"
+			},
+			"cond2":{
+				"x":"150",
+				"y":"100",
+				"width":"4",
+				"height":"5",
+				"colour":"249,157,27"
+			}
+		}
+	}
+]

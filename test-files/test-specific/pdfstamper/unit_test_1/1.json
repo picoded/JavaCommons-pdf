@@ -1,0 +1,38 @@
+[
+	{
+		"type":"text",
+		"key":"test_text",
+		"x":"150",
+		"y":"700",
+		"textsize":"14"
+	},
+	{
+		"type":"checkbox",
+		"key":"test_checkbox",
+		"x":"150",
+		"y":"600",
+		"width":"14",
+		"height":"15",
+		"colour":"249,157,27"
+	},
+	{
+		"type":"checkboxarray",
+		"key":"test_checkboxarr",
+		"options": {
+			"value1": {
+				"x":"150",
+				"y":"300",
+				"width":"10",
+				"height":"10",
+				"colour":"249,157,27"
+			},
+			"value2": {
+				"x":"300",
+				"y":"300",
+				"width":"10",
+				"height":"10",
+				"colour":"0,0,0"
+			}
+		}
+	}
+]
