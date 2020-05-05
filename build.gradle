@@ -360,7 +360,7 @@ task source(dependsOn: src)
 task compile(dependsOn: src) 
 
 // Forcing srcBeautify on src step
-//src.dependsOn srcBeautify
+src.dependsOn srcBeautify
 
 //----------------------------------------------------------------
 //
