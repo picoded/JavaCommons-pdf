@@ -38,6 +38,9 @@ repositories {
 
 // The Project version
 version = '4.1.0'
+project.ext {
+	batikVer = '1.7'
+}
 
 // Setup java compilation version
 sourceCompatibility = 1.8
@@ -88,23 +91,23 @@ dependencies {
 	implementation 'org.kie.modules:org-apache-batik:6.1.0.Beta1'
 
 	// https://mvnrepository.com/artifact/batik/batik-util
-	compile group: 'org.apache.xmlgraphics', name: 'batik-util', version: '1.7'
+	compile group: 'org.apache.xmlgraphics', name: 'batik-util', version: project.batikVer
 	// https://mvnrepository.com/artifact/batik/batik-dom
-	compile group: 'org.apache.xmlgraphics', name: 'batik-dom', version: '1.7'
+	compile group: 'org.apache.xmlgraphics', name: 'batik-dom', version: project.batikVer
 	// https://mvnrepository.com/artifact/org.apache.xmlgraphics/batik-svg-dom
-	compile group: 'org.apache.xmlgraphics', name: 'batik-svg-dom', version: '1.7'
+	compile group: 'org.apache.xmlgraphics', name: 'batik-svg-dom', version: project.batikVer
 	// https://mvnrepository.com/artifact/org.apache.xmlgraphics/batik-svggen
-	compile group: 'org.apache.xmlgraphics', name: 'batik-svggen', version: '1.7'
+	compile group: 'org.apache.xmlgraphics', name: 'batik-svggen', version: project.batikVer
 	// https://mvnrepository.com/artifact/org.apache.xmlgraphics/batik-svgpp
-	compile group: 'org.apache.xmlgraphics', name: 'batik-svgpp', version: '1.7'
+	compile group: 'org.apache.xmlgraphics', name: 'batik-svgpp', version: project.batikVer
 	// https://mvnrepository.com/artifact/org.apache.xmlgraphics/batik-bridge
-	compile group: 'org.apache.xmlgraphics', name: 'batik-bridge', version: '1.7'
+	compile group: 'org.apache.xmlgraphics', name: 'batik-bridge', version: project.batikVer
 	// https://mvnrepository.com/artifact/org.apache.xmlgraphics/batik-transcoder
-	compile group: 'org.apache.xmlgraphics', name: 'batik-transcoder', version: '1.7'
+	compile group: 'org.apache.xmlgraphics', name: 'batik-transcoder', version: project.batikVer
 	// https://mvnrepository.com/artifact/org.apache.xmlgraphics/batik-gvt
-	compile group: 'org.apache.xmlgraphics', name: 'batik-gvt', version: '1.7'
+	compile group: 'org.apache.xmlgraphics', name: 'batik-gvt', version: project.batikVer
 	// https://mvnrepository.com/artifact/org.apache.xmlgraphics/batik-codec
-	compile group: 'org.apache.xmlgraphics', name: 'batik-codec', version: '1.7'
+	compile group: 'org.apache.xmlgraphics', name: 'batik-codec', version: project.batikVer
 
 
 	// // Connection pooling
