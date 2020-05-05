@@ -84,10 +84,28 @@ dependencies {
 	api files("./lib/iText.jar")
 
 	//batik SVG
-	api fileTree(dir: './lib/batik/', include: ['*.jar']) 
-
 	// https://mvnrepository.com/artifact/org.w3c.dom/svg
 	implementation 'org.kie.modules:org-apache-batik:6.1.0.Beta1'
+
+	// https://mvnrepository.com/artifact/batik/batik-util
+	compile group: 'org.apache.xmlgraphics', name: 'batik-util', version: '1.7'
+	// https://mvnrepository.com/artifact/batik/batik-dom
+	compile group: 'org.apache.xmlgraphics', name: 'batik-dom', version: '1.7'
+	// https://mvnrepository.com/artifact/org.apache.xmlgraphics/batik-svg-dom
+	compile group: 'org.apache.xmlgraphics', name: 'batik-svg-dom', version: '1.7'
+	// https://mvnrepository.com/artifact/org.apache.xmlgraphics/batik-svggen
+	compile group: 'org.apache.xmlgraphics', name: 'batik-svggen', version: '1.7'
+	// https://mvnrepository.com/artifact/org.apache.xmlgraphics/batik-svgpp
+	compile group: 'org.apache.xmlgraphics', name: 'batik-svgpp', version: '1.7'
+	// https://mvnrepository.com/artifact/org.apache.xmlgraphics/batik-bridge
+	compile group: 'org.apache.xmlgraphics', name: 'batik-bridge', version: '1.7'
+	// https://mvnrepository.com/artifact/org.apache.xmlgraphics/batik-transcoder
+	compile group: 'org.apache.xmlgraphics', name: 'batik-transcoder', version: '1.7'
+	// https://mvnrepository.com/artifact/org.apache.xmlgraphics/batik-gvt
+	compile group: 'org.apache.xmlgraphics', name: 'batik-gvt', version: '1.7'
+	// https://mvnrepository.com/artifact/org.apache.xmlgraphics/batik-codec
+	compile group: 'org.apache.xmlgraphics', name: 'batik-codec', version: '1.7'
+
 
 	// // Connection pooling
 	// api "com.zaxxer:HikariCP:3.1.0" // connection pooling
@@ -361,8 +379,8 @@ jacocoTestReport {
 		csv.enabled true
 
 		// Report format compatible with codeconv.io
-		xml.destination "${buildDir}/reports/jacoco/report.xml"
-		csv.destination "${buildDir}/reports/jacoco/report.csv"
+		xml.destination file("${buildDir}/reports/jacoco/report.xml")
+		csv.destination file("${buildDir}/reports/jacoco/report.csv")
 	}
 }
 

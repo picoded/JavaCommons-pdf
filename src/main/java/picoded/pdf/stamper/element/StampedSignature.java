@@ -2,7 +2,7 @@ package picoded.pdf.stamper.element;
 
 import java.util.Map;
 import java.io.*;
-import java.lang.Class;
+/*import java.lang.Class;
 
 import java.awt.geom.Rectangle2D;
 import java.awt.Graphics2D;
@@ -11,21 +11,21 @@ import java.awt.image.BufferedImage;
 import javax.xml.bind.DatatypeConverter;
 import javax.imageio.ImageIO;
 
-import org.w3c.dom.Document;
+import org.w3c.dom.Document;*/
 import org.w3c.dom.svg.SVGDocument;
 
-import org.apache.batik.bridge.*;
+//import org.apache.batik.bridge.*;
 import org.apache.batik.dom.svg.*;
-import org.apache.batik.gvt.*;
+//import org.apache.batik.gvt.*;
 import org.apache.batik.transcoder.*;
 import org.apache.batik.transcoder.image.*;
-import org.apache.batik.util.*;
+//import org.apache.batik.util.*;
 
-import com.lowagie.text.Element;
+//import com.lowagie.text.Element;
 import com.lowagie.text.Image;
-import com.lowagie.text.ImgTemplate;
-import com.lowagie.text.pdf.PdfGraphics2D;
-import com.lowagie.text.pdf.PdfTemplate;
+//import com.lowagie.text.ImgTemplate;
+//import com.lowagie.text.pdf.PdfGraphics2D;
+//import com.lowagie.text.pdf.PdfTemplate;
 import com.lowagie.text.pdf.PdfContentByte;
 
 import picoded.core.struct.*;
@@ -111,10 +111,10 @@ public class StampedSignature extends StampedElement{
 	}
 	
 	private SVGDocument getSVGDocument(String svgURI) throws Exception {
-		try {
-			SAXSVGDocumentFactory svgDomFactory = new SAXSVGDocumentFactory(null);
-			System.out.println("getSvgDoc");
+		/*try {*/
+			SAXSVGDocumentFactory svgDomFactory = new SAXSVGDocumentFactory(null);	
 			SVGDocument svgDoc = svgDomFactory.createSVGDocument(svgURI);
+
 			float originalSVGWidth = Float.parseFloat(svgDoc.getDocumentElement().getAttribute("width").replaceAll("[^0-9.,]",""));
 			float originalSVGHeight = Float.parseFloat(svgDoc.getDocumentElement().getAttribute("height").replaceAll("[^0-9.,]",""));
 			
@@ -123,10 +123,10 @@ public class StampedSignature extends StampedElement{
 			svgDoc.getDocumentElement().setAttribute("height", "" + height);
 			
 			return svgDoc;
-		} catch (Exception ex) {
+		/*} catch (Exception ex) {
 			System.out.println(ex);
 		}
-		return new SAXSVGDocumentFactory(null).createSVGDocument("haha");
+		return new SAXSVGDocumentFactory(null).createSVGDocument(null);*/
 	}
 	
 	// private byte[] padOrResize(byte[] imageBytes) throws Exception {
