@@ -38,6 +38,9 @@ repositories {
 
 // The Project version
 version = '4.1.0'
+project.ext {
+	batikVer = '1.7'
+}
 
 // Setup java compilation version
 sourceCompatibility = 1.8
@@ -76,8 +79,36 @@ dependencies {
 	compileOnly fileTree(dir: './JavaCommons-core/build/libs', include: ['*-all.jar']) 
 	testImplementation fileTree(dir: './JavaCommons-core/build/libs', include: ['*-all.jar']) 
 
+
 	// This dependencies is exported to consumers, that is to say found on their compile classpath.
 	//-------------------------------------------------------------------------------------------------------------------
+
+	// iText 
+	api files("./lib/iText.jar")
+
+	//batik SVG
+	// https://mvnrepository.com/artifact/org.w3c.dom/svg
+	implementation 'org.kie.modules:org-apache-batik:6.1.0.Beta1'
+
+	// https://mvnrepository.com/artifact/batik/batik-util
+	compile group: 'org.apache.xmlgraphics', name: 'batik-util', version: project.batikVer
+	// https://mvnrepository.com/artifact/batik/batik-dom
+	compile group: 'org.apache.xmlgraphics', name: 'batik-dom', version: project.batikVer
+	// https://mvnrepository.com/artifact/org.apache.xmlgraphics/batik-svg-dom
+	compile group: 'org.apache.xmlgraphics', name: 'batik-svg-dom', version: project.batikVer
+	// https://mvnrepository.com/artifact/org.apache.xmlgraphics/batik-svggen
+	compile group: 'org.apache.xmlgraphics', name: 'batik-svggen', version: project.batikVer
+	// https://mvnrepository.com/artifact/org.apache.xmlgraphics/batik-svgpp
+	compile group: 'org.apache.xmlgraphics', name: 'batik-svgpp', version: project.batikVer
+	// https://mvnrepository.com/artifact/org.apache.xmlgraphics/batik-bridge
+	compile group: 'org.apache.xmlgraphics', name: 'batik-bridge', version: project.batikVer
+	// https://mvnrepository.com/artifact/org.apache.xmlgraphics/batik-transcoder
+	compile group: 'org.apache.xmlgraphics', name: 'batik-transcoder', version: project.batikVer
+	// https://mvnrepository.com/artifact/org.apache.xmlgraphics/batik-gvt
+	compile group: 'org.apache.xmlgraphics', name: 'batik-gvt', version: project.batikVer
+	// https://mvnrepository.com/artifact/org.apache.xmlgraphics/batik-codec
+	compile group: 'org.apache.xmlgraphics', name: 'batik-codec', version: project.batikVer
+
 
 	// // Connection pooling
 	// api "com.zaxxer:HikariCP:3.1.0" // connection pooling
@@ -356,8 +387,8 @@ jacocoTestReport {
 		csv.enabled true
 
 		// Report format compatible with codeconv.io
-		xml.destination "${buildDir}/reports/jacoco/report.xml"
-		csv.destination "${buildDir}/reports/jacoco/report.csv"
+		xml.destination file("${buildDir}/reports/jacoco/report.xml")
+		csv.destination file("${buildDir}/reports/jacoco/report.csv")
 	}
 }
 
@@ -373,6 +404,13 @@ task buildAll {
 	dependsOn jar
 	dependsOn shadowJar
 	dependsOn fatJar
+}
+
+task gogo {
+	description = "src and test"
+
+	dependsOn src
+	dependsOn test
 }
 
 task testAndBuildAll {
