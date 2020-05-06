@@ -31,9 +31,9 @@ build/*
 test/tmp
 
 #
-# Core ( to be pulled from submodule )
+# Unit test result
 #
-src/main/java/picoded/core/*
+test-files/test-specific/pdfstamper/unit_test_1/result/*
 
 #
 # Include back .gitignore
