@@ -41,7 +41,7 @@ public class StampedSignature extends StampedElement{
 	boolean thickenSignature = true;
 	
 	public StampedSignature(String inKey, int inPage, float inXPos, float inYPos, Map<String, Object> inTemplateDefinition){
-		super("text", inKey, inPage, inXPos, inYPos);
+		super("signature", inKey, inPage, inXPos, inYPos);
 		
 		GenericConvertMap<String, Object> templateDefinition = ProxyGenericConvertMap.ensure(inTemplateDefinition);
 		height = templateDefinition.getFloat("height", 0);

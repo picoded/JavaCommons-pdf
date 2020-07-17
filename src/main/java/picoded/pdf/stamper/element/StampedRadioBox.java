@@ -2,9 +2,6 @@ package picoded.pdf.stamper.element;
 
 import java.util.Map;
 
-import com.lowagie.text.Element;
-import com.lowagie.text.Rectangle;
-
 import com.lowagie.text.pdf.PdfContentByte;
 
 import picoded.core.struct.*;
@@ -40,6 +37,10 @@ public class StampedRadioBox extends StampedElement{
 		}
 		
 		options = ProxyGenericConvertMap.ensure(inOptions);
+	}
+
+	public Map<String, Object> getOptions() {
+		return options;
 	}
 	
 	public void stampOnCanvas(PdfContentByte canvas, Map<String, Object> templateData){

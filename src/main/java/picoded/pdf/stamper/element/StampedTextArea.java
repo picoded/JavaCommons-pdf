@@ -25,7 +25,7 @@ public class StampedTextArea extends StampedElement{
 	// TODO:: Specify max chars?
 	
 	public StampedTextArea(String inKey, int inPage, float inXPos, float inYPos, Map<String, Object> inTemplateDefinition){
-		super("text", inKey, inPage, inXPos, inYPos);
+		super("textarea", inKey, inPage, inXPos, inYPos);
 		
 		GenericConvertMap<String, Object> templateDefinition = ProxyGenericConvertMap.ensure(inTemplateDefinition);
 		
@@ -38,7 +38,6 @@ public class StampedTextArea extends StampedElement{
 		boxHeight = templateDefinition.getFloat("boxheight", 10);
 		debug = templateDefinition.getBoolean("debug", false);
 	}
-	
 	public void stampOnCanvas(PdfContentByte canvas, Map<String, Object> inTemplateData){
 		if(!inTemplateData.containsKey(key())){
 			return;
