@@ -10,7 +10,7 @@ import com.lowagie.text.pdf.PdfContentByte;
 public class StampedImage extends StampedElement{
 	String imageSrc = "";
 	public StampedImage(String inKey, int inPage, float inXPos, float inYPos, String inImageSrc){
-		super("text", inKey, inPage, inXPos, inYPos);
+		super("image", inKey, inPage, inXPos, inYPos);
 		
 		imageSrc = inImageSrc;
 	}

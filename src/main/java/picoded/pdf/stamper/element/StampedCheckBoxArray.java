@@ -41,6 +41,10 @@ public class StampedCheckBoxArray extends StampedElement{
 		
 		options = ProxyGenericConvertMap.ensure(inOptions);
 	}
+
+	public Map<String, Object> getOptions() {
+		return options;
+	}
 	
 	public void stampOnCanvas(PdfContentByte canvas, Map<String, Object> templateData){
 		GenericConvertMap<String, Object> templateGCM = ProxyGenericConvertMap.ensure(templateData);

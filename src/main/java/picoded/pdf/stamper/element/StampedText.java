@@ -30,7 +30,6 @@ public class StampedText extends StampedElement{
 			fontAlias = inFontAlias;
 		}
 	}
-	
 	public void stampOnCanvas(PdfContentByte canvas, Map<String, Object> templateData){
 		if(!templateData.containsKey(key())){
 			return;

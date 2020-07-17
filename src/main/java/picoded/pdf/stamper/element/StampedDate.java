@@ -28,7 +28,7 @@ public class StampedDate extends StampedElement{
 	private boolean formatMonthAsMMM = false;
 	
 	public StampedDate(String inKey, int inPage, float inXPos, float inYPos, Map<String, Object> inTemplateDefinition){
-		super("text", inKey, inPage, inXPos, inYPos);
+		super("date", inKey, inPage, inXPos, inYPos);
 		
 		GenericConvertMap<String, Object> templateDefinition = ProxyGenericConvertMap.ensure(inTemplateDefinition);
 		fontAlias = templateDefinition.getString("fontalias", "times-roman");
