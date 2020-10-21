@@ -30,6 +30,8 @@ public class StampedPdfBuilder_test {
 		Map<String, Object> templateData = GenericConvert.toStringMap(dataJsonString);
 		
 		//output file spec
+		File outputDir = new File("./test-files/test-specific/pdfstamper/unit_test_1/result");
+		outputDir.mkdirs();
 		File outputFile = new File("./test-files/test-specific/pdfstamper/unit_test_1/result" , "test-3.pdf");
 		
 		//perform stamping

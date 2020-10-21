@@ -76,5 +76,13 @@
 				"colour":"249,157,27"
 			}
 		}
+	},
+	{
+		"type":"integer",
+		"key":"ma_residential_assets",
+		"x":"168",
+		"y":"20",
+		"maxchars":13,
+		"textsize":"9"
 	}
 ]

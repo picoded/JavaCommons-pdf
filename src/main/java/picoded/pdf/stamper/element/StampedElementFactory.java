@@ -6,12 +6,12 @@ import java.util.*;
 import picoded.core.struct.*;
 
 public class StampedElementFactory{
-	public IStampedElement createElement(Map<String, Object> inTemplateData){
-		return createElement(inTemplateData, -1);
+	public IStampedElement createElement(Map<String, Object> inTemplateData, GenericConvertMap<String, Object> templateConfig){
+		return createElement(inTemplateData, -1, templateConfig);
 	}
 	
 	// TODO:: Do some refactoring or how the params get passed down to the element
-	public IStampedElement createElement(Map<String, Object> inTemplateData, int inPage){
+	public IStampedElement createElement(Map<String, Object> inTemplateData, int inPage, GenericConvertMap<String, Object> templateConfig){
 		GenericConvertMap<String, Object> template = ProxyGenericConvertMap.ensure(inTemplateData);
 		
 		String type = template.getString("type", "");
@@ -20,12 +20,16 @@ public class StampedElementFactory{
 		float xPos = template.getFloat("x", 0f);
 		float yPos = template.getFloat("y", 0f);
 		float rot = template.getFloat("rot", 0f);
+
+		String configFontAlias = templateConfig.getString("textFont", "");
+		String fontAlias = configFontAlias.equalsIgnoreCase("") ? template.getString("fontalias") : configFontAlias;
+		float configTextSize = templateConfig.getFloat("textAreaSize", -1f);
+		float textSize = (configTextSize == -1f) ? template.getFloat("textsize", 7f) : configTextSize;
+		String capitalize = template.getString("capitalize", "");
 		
 		if(type.equalsIgnoreCase("text")){
-			String fontAlias = template.getString("fontalias", "");
-			float textSize = template.getFloat("textsize", 10f);
 			int maxChars = template.getInt("maxchars", -1);
-			return new StampedText(key, page, xPos, yPos, rot, textSize, maxChars, fontAlias);
+			return new StampedText(key, page, xPos, yPos, rot, textSize, maxChars, fontAlias, capitalize);
 		}else if (type.equalsIgnoreCase("image")){
 			String imageSrc = template.getString("src", "");
 			StampedImage si = new StampedImage(key, page, xPos, yPos, imageSrc);
@@ -46,14 +50,16 @@ public class StampedElementFactory{
 			Map<String, Object> options = template.getStringMap("options", new HashMap<String, Object>());
 			return new StampedCheckBoxArray(key, page, template, options);
 		}else if(type.equalsIgnoreCase("textarea")){
-			return new StampedTextArea(key, page, xPos, yPos, template);
+			return new StampedTextArea(key, page, xPos, yPos, template, textSize, fontAlias);
 		}else if(type.equalsIgnoreCase("signature")){
 			return new StampedSignature(key, page, xPos, yPos, template);
 		}else if(type.equalsIgnoreCase("date")){
-			return new StampedDate(key, page, xPos, yPos, template);
+			return new StampedDate(key, page, xPos, yPos, template, textSize, fontAlias);
 		}else if(type.equalsIgnoreCase("stampedtextconditionalposition")){
 			Map<String, Object> options = template.getStringMap("options", new HashMap<String, Object>());
 			return new StampedTextConditionalPosition(key, page, options);
+		} else if(type.equalsIgnoreCase("integer")){
+			return new StampedInteger(key, page, xPos, yPos, template, textSize, fontAlias);
 		}
 		
 		throw new RuntimeException("No builder found for element type: " +type);

@@ -12,6 +12,8 @@ public class StampedPdfTemplate{
 	List<IStampedElement> elements = null;
 	int numberOfPages = 0;
 	StampedElementFactory elementFactory = null;
+	GenericConvertMap<String, Object> templateConfig = new GenericConvertHashMap<String,Object>();
+
 	public StampedPdfTemplate(File inTemplateFile){
 		elements = new ArrayList<IStampedElement>();
 		elementFactory = new StampedElementFactory();
@@ -21,6 +23,12 @@ public class StampedPdfTemplate{
 	public StampedPdfTemplate(){
 		elements = new ArrayList<IStampedElement>();
 		elementFactory = new StampedElementFactory();
+	}
+
+	public StampedPdfTemplate(GenericConvertMap<String, Object> inConfig){
+		elements = new ArrayList<IStampedElement>();
+		elementFactory = new StampedElementFactory();
+		templateConfig = inConfig;
 	}
 	
 	public int numberOfPages(){ return numberOfPages; }
@@ -36,7 +44,7 @@ public class StampedPdfTemplate{
 	public void setFromRawInputMode(List<Object> inTemplateDefinition){
 		for(Object rawTemplateObject : inTemplateDefinition){
 			Map<String, Object> templateMap = GenericConvert.toStringMap(rawTemplateObject);
-			IStampedElement element = elementFactory.createElement(templateMap);
+			IStampedElement element = elementFactory.createElement(templateMap,templateConfig);
 			numberOfPages = Math.max(numberOfPages, element.page());
 			elements.add(element);
 		}
@@ -57,7 +65,7 @@ public class StampedPdfTemplate{
 			for(Object rawTemplateObject : pageTemplateDefinition){
 				
 				Map<String, Object> templateMap = GenericConvert.toStringMap(rawTemplateObject);
-				IStampedElement element = elementFactory.createElement(templateMap, Integer.parseInt(page));
+				IStampedElement element = elementFactory.createElement(templateMap, Integer.parseInt(page),templateConfig);
 				numberOfPages = Math.max(numberOfPages, element.page());
 				elements.add(element);
 			}

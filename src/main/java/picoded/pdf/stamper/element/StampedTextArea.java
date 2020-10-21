@@ -24,13 +24,13 @@ public class StampedTextArea extends StampedElement{
 	
 	// TODO:: Specify max chars?
 	
-	public StampedTextArea(String inKey, int inPage, float inXPos, float inYPos, Map<String, Object> inTemplateDefinition){
+	public StampedTextArea(String inKey, int inPage, float inXPos, float inYPos, Map<String, Object> inTemplateDefinition, float inTextSize, String inFontAlias){
 		super("textarea", inKey, inPage, inXPos, inYPos);
 		
 		GenericConvertMap<String, Object> templateDefinition = ProxyGenericConvertMap.ensure(inTemplateDefinition);
 		
-		fontAlias = templateDefinition.getString("fontalias", "");
-		textSize = templateDefinition.getFloat("textsize", 10f);
+		fontAlias = inFontAlias;
+		textSize = inTextSize;
 		maxCharsPerLine = templateDefinition.getInt("maxcharsperline", 100);
 		maxLines = templateDefinition.getInt("maxlines", 10);
 		lineHeight = templateDefinition.getInt("lineheight", 10);
