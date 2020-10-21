@@ -27,12 +27,12 @@ public class StampedDate extends StampedElement{
 	private String middleText = "";
 	private boolean formatMonthAsMMM = false;
 	
-	public StampedDate(String inKey, int inPage, float inXPos, float inYPos, Map<String, Object> inTemplateDefinition){
+	public StampedDate(String inKey, int inPage, float inXPos, float inYPos, Map<String, Object> inTemplateDefinition, float inTextSize, String inFontAlias){
 		super("date", inKey, inPage, inXPos, inYPos);
 		
 		GenericConvertMap<String, Object> templateDefinition = ProxyGenericConvertMap.ensure(inTemplateDefinition);
-		fontAlias = templateDefinition.getString("fontalias", "times-roman");
-		textSize = templateDefinition.getFloat("textsize", 10);
+		fontAlias = inFontAlias;
+		textSize = inTextSize;
 		maxChars = templateDefinition.getInt("maxchars", -1);
 		rot = templateDefinition.getFloat("rot", 0);
 		

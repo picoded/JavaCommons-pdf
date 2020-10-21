@@ -76,7 +76,7 @@ dependencies {
 	// Get and compile against the -all.jar lib file from javacommons core
 	// note that compileOnly + testImplementation ensures this file is not included 
 	// in any of the 3 jar builds, but still make it part of the test suite
-	compileOnly fileTree(dir: './JavaCommons-core/build/libs', include: ['*-all.jar']) 
+	implementation fileTree(dir: './JavaCommons-core/build/libs', include: ['*-all.jar']) 
 	testImplementation fileTree(dir: './JavaCommons-core/build/libs', include: ['*-all.jar']) 
 
 
