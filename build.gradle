@@ -347,13 +347,18 @@ task incrementalTest(type: TestWatcher) {
 def srcBeautify_inputFiles = project.fileTree(dir: "src", include: "**/*.java")
 def srcBeautify_outputDir = "${project.buildDir}/build-util/java-fromatter/output/"
 task srcBeautify(type:Exec) {
-	// Input file tracking, to skip command if its not needed
+	// Input file tracking support, 
+	// this helps gradle skip this command if no files was changed
 	inputs.files(srcBeautify_inputFiles)
 	outputs.dir(srcBeautify_outputDir)
+	workingDir '.'
 
 	// The build formatter command
-	workingDir '.'
-	commandLine './build-util/java-formatter/parallel_format.sh','./src'
+	if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
+		// Does nothing as of now, as windows support is not yet in place
+	} else {
+		commandLine './build-util/java-formatter/parallel_format.sh','./src'
+	}
 }
 task prettify(dependsOn: srcBeautify) 
 
