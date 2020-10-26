@@ -42,7 +42,7 @@ public class StampedText extends StampedElement{
 			val = val.substring(0, maxChars);
 		}
 
-		if (capitalize.equals("first")) {
+		if (capitalize.equals("first") && val != null && !val.isEmpty()) {
 			val = val.substring(0, 1).toUpperCase() + val.substring(1);
 		} else if (capitalize.equals("all")) {
 			val = val.toUpperCase();

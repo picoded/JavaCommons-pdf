@@ -57,7 +57,7 @@ public class StampedCheckBoxArray extends StampedElement{
 		for(String val : valArr){
 			Map<String, Object> valueConfig = options.getStringMap(val, null);
 			if(valueConfig == null){
-				return;
+				continue; // this is to allow stamping to continue for other valid values
 			}
 			
 			GenericConvertMap<String, Object> valueGCM = ProxyGenericConvertMap.ensure(valueConfig);
