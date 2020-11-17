@@ -16,11 +16,13 @@ public class StampedTextArea extends StampedElement{
 	public String fontAlias = "times-roman";
 	public float textSize = 10;
 	public int maxCharsPerLine = 100;
+	public int maxChars = -1;
 	public int maxLines = 10;
 	public int lineHeight = 10;
 	public float boxWidth = 100;
 	public float boxHeight = 100;
 	private boolean debug = false;
+	public String align = "left";
 	
 	// TODO:: Specify max chars?
 	
@@ -32,11 +34,13 @@ public class StampedTextArea extends StampedElement{
 		fontAlias = inFontAlias;
 		textSize = inTextSize;
 		maxCharsPerLine = templateDefinition.getInt("maxcharsperline", 100);
+		maxChars = templateDefinition.getInt("maxchars", -1);
 		maxLines = templateDefinition.getInt("maxlines", 10);
 		lineHeight = templateDefinition.getInt("lineheight", 10);
 		boxWidth = templateDefinition.getFloat("boxwidth", 10);
 		boxHeight = templateDefinition.getFloat("boxheight", 10);
 		debug = templateDefinition.getBoolean("debug", false);
+		align = templateDefinition.getString("align", "left");
 	}
 	public void stampOnCanvas(PdfContentByte canvas, Map<String, Object> inTemplateData){
 		if(!inTemplateData.containsKey(key())){
@@ -46,6 +50,9 @@ public class StampedTextArea extends StampedElement{
 		String val = "";
 		try{
 			val = String.valueOf(inTemplateData.get(key()));
+			if(maxChars > -1 && val.length() > maxChars){
+				val = val.substring(0, maxChars);
+			}
 		}catch(Exception ex){
 			System.out.println("Exception converting val for key: " + key() + " with raw val: " + inTemplateData.get(key()));
 			throw new RuntimeException(ex);
@@ -66,8 +73,15 @@ public class StampedTextArea extends StampedElement{
 			ColumnText ct = new ColumnText(canvas);
 			Phrase iTextPhrase = new Phrase(val, FontFactory.getFont(fontAlias, "UTF-8", true, textSize));
 			float topRightX = xPos() + boxWidth;
-			float topRightY = yPos() + boxHeight;
-			ct.setSimpleColumn(iTextPhrase, xPos(), yPos(), topRightX, topRightY, lineHeight, Element.ALIGN_LEFT);
+      float topRightY = yPos() + boxHeight;
+      // allow configurable alignment
+      int alignto = Element.ALIGN_LEFT;
+      if (align.equalsIgnoreCase("center")) {
+        alignto = Element.ALIGN_CENTER;
+      } else if (align.equalsIgnoreCase("right")) {
+        alignto = Element.ALIGN_RIGHT;
+      }
+			ct.setSimpleColumn(iTextPhrase, xPos(), yPos(), topRightX, topRightY, lineHeight, alignto);
 			ct.go();
 			
 			if(debug){

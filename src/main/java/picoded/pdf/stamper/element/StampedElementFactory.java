@@ -23,8 +23,12 @@ public class StampedElementFactory{
 
 		String configFontAlias = templateConfig.getString("textFont", "");
 		String fontAlias = configFontAlias.equalsIgnoreCase("") ? template.getString("fontalias") : configFontAlias;
-		float configTextSize = templateConfig.getFloat("textAreaSize", -1f);
-		float textSize = (configTextSize == -1f) ? template.getFloat("textsize", 7f) : configTextSize;
+		// float configTextSize = templateConfig.getFloat("textAreaSize", -1f);
+		// float textSize = (configTextSize == -1f) ? template.getFloat("textsize", 7f) : configTextSize;
+		// only take default textsize when element's text size not found
+		float configTextSize = templateConfig.getFloat("textAreaSize", 7f);
+		float elemTextSize = template.getFloat("textsize", -1f);
+		float textSize = (elemTextSize == -1f) ? configTextSize : elemTextSize;
 		String capitalize = template.getString("capitalize", "");
 		
 		if(type.equalsIgnoreCase("text")){

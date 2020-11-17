@@ -6,8 +6,9 @@ import java.util.Map;
 
 import picoded.core.conv.GenericConvert;
 import picoded.core.file.FileUtil;
-import picoded.core.struct.GenericConvertMap;
-import picoded.core.struct.ProxyGenericConvertMap;
+
+import picoded.core.conv.*;
+import picoded.core.struct.*;
 
 // this is a shortcut for implementation for application that uses 
 // elements.json > {$n}.json  templates organization pattern
@@ -15,9 +16,15 @@ public class StampedPdfTemplateByPages extends StampedPdfTemplate {
 	
 		StampedPdfTemplate templateByPages = null;
 		String templatePathTo = null;
-		  
+		GenericConvertMap<String, Object> projectConfig = new GenericConvertHashMap<String,Object>();
+
 		public StampedPdfTemplateByPages (File templatePageConfig)  {
-			 templateByPages = getPdfTemplate(templatePageConfig);
+      templateByPages = getPdfTemplate(templatePageConfig);
+		}
+		
+		public StampedPdfTemplateByPages (File templatePageConfig, Map<String,Object> prjConfig)  {
+      projectConfig = ProxyGenericConvertMap.ensure(prjConfig);
+      templateByPages = getPdfTemplate(templatePageConfig);
 		}
 		
 		public StampedPdfTemplate getPdfTemplate  (File templatePageConfig) {
@@ -30,8 +37,7 @@ public class StampedPdfTemplateByPages extends StampedPdfTemplate {
 			String templateJsonString = FileUtil.readFileToString_withFallback(templatePageConfig, "UTF-8", "");
 			GenericConvertMap<String, Object> templateGCM = ProxyGenericConvertMap.ensure(GenericConvert.toStringMap(templateJsonString));
 			String mode = templateGCM.getString("mode", "pages");
-			
-			StampedPdfTemplate stampedPdfTemplate = new StampedPdfTemplate();
+			StampedPdfTemplate stampedPdfTemplate = new StampedPdfTemplate(projectConfig);
 			if(mode.equalsIgnoreCase("pages")){
 				Map<String, Object> templatePagesDefinition = templateGCM.getStringMap("template", null);
 				for(String key : templatePagesDefinition.keySet()){
