@@ -2,6 +2,9 @@ package picoded.pdf.stamper.element;
 
 import java.util.Map;
 import java.awt.Color;
+import java.text.NumberFormat;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 
 import com.lowagie.text.Element;
 import com.lowagie.text.Phrase;
@@ -14,34 +17,34 @@ import com.lowagie.text.pdf.ColumnText;
 import picoded.core.struct.*;
 
 public class StampedInteger extends StampedElement {
-	
+
 	public String fontAlias = "times-roman";
 	public float textSize = 10;
 	private float rot = 0;
-	
+
 	private Color negativeValueColour = Color.RED;
-	
+
 	public StampedInteger(String inKey, int inPage, float inXPos, float inYPos, Map<String, Object> inTemplateDefinition, float inTextSize, String inFontAlias){
 		super("integer", inKey, inPage, inXPos, inYPos);
-		
+
 		GenericConvertMap<String, Object> templateDefinition = ProxyGenericConvertMap.ensure(inTemplateDefinition);
-		
+
 		fontAlias = inFontAlias;
 		textSize = inTextSize;
 		rot = templateDefinition.getFloat("rot", 0);
-		
+
 		String negativeColourOverride = templateDefinition.getString("colour", "");
 		if(!negativeColourOverride.isEmpty()){
 			String[] negColourOverrideRGB = negativeColourOverride.split(",");
 			negativeValueColour = new java.awt.Color(Integer.parseInt(negColourOverrideRGB[0]), Integer.parseInt(negColourOverrideRGB[1]), Integer.parseInt(negColourOverrideRGB[2]));
 		}
 	}
-	
+
 	public void stampOnCanvas(PdfContentByte canvas, Map<String, Object> templateData){
 		if(!templateData.containsKey(key())){
 			return;
 		}
-		
+
 		String stampedStr;
 		Font font;
 
@@ -53,17 +56,25 @@ public class StampedInteger extends StampedElement {
 			font = FontFactory.getFont(fontAlias, "UTF-8", true, textSize, java.awt.Font.PLAIN, Color.BLACK);
 		}else{
 			int val = picoded.core.conv.GenericConvert.toInt(templateData.get(key()));
-			
-			font = val < 0 ? 
-				FontFactory.getFont(fontAlias, "UTF-8", true, textSize, java.awt.Font.PLAIN, negativeValueColour) 
+
+			font = val < 0 ?
+				FontFactory.getFont(fontAlias, "UTF-8", true, textSize, java.awt.Font.PLAIN, negativeValueColour)
 				: FontFactory.getFont(fontAlias, "UTF-8", true, textSize, java.awt.Font.PLAIN, Color.BLACK);
-			stampedStr =  Integer.toString(val);
+
+			// format currency
+			NumberFormat formattedCurrency = NumberFormat.getCurrencyInstance();
+			DecimalFormatSymbols dfs = new DecimalFormatSymbols();
+			dfs.setCurrencySymbol("SGD$");
+			dfs.setGroupingSeparator(',');
+			formattedCurrency.setMaximumFractionDigits(0);
+			((DecimalFormat) formattedCurrency).setDecimalFormatSymbols(dfs);
+			stampedStr = formattedCurrency.format(val);
 		}
-		
+
 		Phrase iTextPhrase = new Phrase(stampedStr, font);
 		ColumnText.showTextAligned(canvas, Element.ALIGN_LEFT, iTextPhrase, xPos(), yPos(), rot());
 	}
-	
+
 	public float rot(){ return rot; }
 	public float textSize(){ return textSize; }
 }
