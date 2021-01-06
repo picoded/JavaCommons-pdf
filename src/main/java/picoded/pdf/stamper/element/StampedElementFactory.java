@@ -9,11 +9,11 @@ public class StampedElementFactory{
 	public IStampedElement createElement(Map<String, Object> inTemplateData, GenericConvertMap<String, Object> templateConfig){
 		return createElement(inTemplateData, -1, templateConfig);
 	}
-	
+
 	// TODO:: Do some refactoring or how the params get passed down to the element
 	public IStampedElement createElement(Map<String, Object> inTemplateData, int inPage, GenericConvertMap<String, Object> templateConfig){
 		GenericConvertMap<String, Object> template = ProxyGenericConvertMap.ensure(inTemplateData);
-		
+
 		String type = template.getString("type", "");
 		String key = template.getString("key", "");
 		int page = template.getInt("page", inPage);
@@ -30,7 +30,7 @@ public class StampedElementFactory{
 		float elemTextSize = template.getFloat("textsize", -1f);
 		float textSize = (elemTextSize == -1f) ? configTextSize : elemTextSize;
 		String capitalize = template.getString("capitalize", "");
-		
+
 		if(type.equalsIgnoreCase("text")){
 			int maxChars = template.getInt("maxchars", -1);
 			return new StampedText(key, page, xPos, yPos, rot, textSize, maxChars, fontAlias, capitalize);
@@ -43,7 +43,7 @@ public class StampedElementFactory{
 			if(template.containsKey("height")){
 				si.setHeight(template.getFloat("height", 0));
 			}
-			
+
 			return si;
 		}else if(type.equalsIgnoreCase("checkbox")){
 			return new StampedCheckBox(key, page, xPos, yPos, template);
@@ -64,8 +64,10 @@ public class StampedElementFactory{
 			return new StampedTextConditionalPosition(key, page, options);
 		} else if(type.equalsIgnoreCase("integer")){
 			return new StampedInteger(key, page, xPos, yPos, template, textSize, fontAlias);
+		} else if(type.equalsIgnoreCase("currency")){
+			return new StampedCurrency(key, page, xPos, yPos, template, textSize, fontAlias);
 		}
-		
+
 		throw new RuntimeException("No builder found for element type: " +type);
 	}
 }
