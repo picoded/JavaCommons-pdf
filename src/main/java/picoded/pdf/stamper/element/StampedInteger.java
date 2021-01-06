@@ -2,9 +2,6 @@ package picoded.pdf.stamper.element;
 
 import java.util.Map;
 import java.awt.Color;
-import java.text.NumberFormat;
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
 
 import com.lowagie.text.Element;
 import com.lowagie.text.Phrase;
@@ -60,15 +57,7 @@ public class StampedInteger extends StampedElement {
 			font = val < 0 ?
 				FontFactory.getFont(fontAlias, "UTF-8", true, textSize, java.awt.Font.PLAIN, negativeValueColour)
 				: FontFactory.getFont(fontAlias, "UTF-8", true, textSize, java.awt.Font.PLAIN, Color.BLACK);
-
-			// format currency
-			NumberFormat formattedCurrency = NumberFormat.getCurrencyInstance();
-			DecimalFormatSymbols dfs = new DecimalFormatSymbols();
-			dfs.setCurrencySymbol("SGD$");
-			dfs.setGroupingSeparator(',');
-			formattedCurrency.setMaximumFractionDigits(0);
-			((DecimalFormat) formattedCurrency).setDecimalFormatSymbols(dfs);
-			stampedStr = formattedCurrency.format(val);
+			stampedStr =  Integer.toString(val);
 		}
 
 		Phrase iTextPhrase = new Phrase(stampedStr, font);
