@@ -35,6 +35,8 @@ import picoded.core.conv.GenericConvert;
 public class StampedSignature extends StampedElement{
 	float height = 0;
 	float width = 0;
+	float svgheight = 0;
+	float svgwidth = 0;
 	boolean debug = false;
 	// this flag will cause the signature to get stamped twice - this helps to alleviate the wiry and thin signature look after resizing
 	// will be true by default
@@ -46,6 +48,8 @@ public class StampedSignature extends StampedElement{
 		GenericConvertMap<String, Object> templateDefinition = ProxyGenericConvertMap.ensure(inTemplateDefinition);
 		height = templateDefinition.getFloat("height", 0);
 		width = templateDefinition.getFloat("width", 0);
+		svgheight = templateDefinition.getFloat("svgheight", 300);
+		svgwidth = templateDefinition.getFloat("svgwidth", 1000);
 		debug = templateDefinition.getBoolean("debug", false);
 		thickenSignature = templateDefinition.getBoolean("thickenSignature", true);
 	}
@@ -61,6 +65,8 @@ public class StampedSignature extends StampedElement{
 			
 			// Step-3: Create PNGTranscoder and define hints if required
 			PNGTranscoder my_converter = new PNGTranscoder();
+			my_converter.addTranscodingHint(PNGTranscoder.KEY_WIDTH, svgwidth);
+			my_converter.addTranscodingHint(PNGTranscoder.KEY_HEIGHT, svgheight);
 			
 			// Step-4: Convert and Write output
 			my_converter.transcode(input_svg_image, output_png_image);
@@ -92,6 +98,7 @@ public class StampedSignature extends StampedElement{
 			SVGDocument svgDoc = getSVGDocument(val);
 			byte[] pngBytes = SVGDocumentToPNG(svgDoc);
 			Image img = Image.getInstance(pngBytes);
+			img.scaleToFit(width, height);
 			img.setAbsolutePosition(xPos(), yPos());
 			canvas.addImage(img);
 			
