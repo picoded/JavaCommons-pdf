@@ -2,6 +2,9 @@ package picoded.pdf.stamper.element;
 
 import java.util.Map;
 import java.awt.Color;
+import java.text.NumberFormat;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 
 import com.lowagie.text.Element;
 import com.lowagie.text.Phrase;
@@ -13,7 +16,7 @@ import com.lowagie.text.pdf.ColumnText;
 
 import picoded.core.struct.*;
 
-public class StampedInteger extends StampedElement {
+public class StampedCurrency extends StampedElement {
 
 	public String fontAlias = "times-roman";
 	public float textSize = 10;
@@ -21,8 +24,10 @@ public class StampedInteger extends StampedElement {
 
 	private Color negativeValueColour = Color.RED;
 
-	public StampedInteger(String inKey, int inPage, float inXPos, float inYPos, Map<String, Object> inTemplateDefinition, float inTextSize, String inFontAlias){
-		super("integer", inKey, inPage, inXPos, inYPos);
+  private String currencySymbol = "SGD$";
+
+	public StampedCurrency(String inKey, int inPage, float inXPos, float inYPos, Map<String, Object> inTemplateDefinition, float inTextSize, String inFontAlias){
+		super("currency", inKey, inPage, inXPos, inYPos);
 
 		GenericConvertMap<String, Object> templateDefinition = ProxyGenericConvertMap.ensure(inTemplateDefinition);
 
@@ -57,7 +62,15 @@ public class StampedInteger extends StampedElement {
 			font = val < 0 ?
 				FontFactory.getFont(fontAlias, "UTF-8", true, textSize, java.awt.Font.PLAIN, negativeValueColour)
 				: FontFactory.getFont(fontAlias, "UTF-8", true, textSize, java.awt.Font.PLAIN, Color.BLACK);
-			stampedStr =  Integer.toString(val);
+
+			// format currency
+			NumberFormat formattedCurrency = NumberFormat.getCurrencyInstance();
+			DecimalFormatSymbols dfs = new DecimalFormatSymbols();
+			dfs.setCurrencySymbol(currencySymbol);
+			dfs.setGroupingSeparator(',');
+			formattedCurrency.setMaximumFractionDigits(0);
+			((DecimalFormat) formattedCurrency).setDecimalFormatSymbols(dfs);
+			stampedStr = formattedCurrency.format(val);
 		}
 
 		Phrase iTextPhrase = new Phrase(stampedStr, font);
