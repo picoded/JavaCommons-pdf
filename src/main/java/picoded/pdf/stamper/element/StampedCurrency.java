@@ -23,8 +23,8 @@ public class StampedCurrency extends StampedElement {
 	private float rot = 0;
 
 	private Color negativeValueColour = Color.RED;
-
-  	private String currencySymbol = "S$";
+	private String currencySymbol = "S$";
+	private Integer precision = 0;
 
 	public StampedCurrency(String inKey, int inPage, float inXPos, float inYPos, Map<String, Object> inTemplateDefinition, float inTextSize, String inFontAlias){
 		super("currency", inKey, inPage, inXPos, inYPos);
@@ -41,6 +41,7 @@ public class StampedCurrency extends StampedElement {
 			negativeValueColour = new java.awt.Color(Integer.parseInt(negColourOverrideRGB[0]), Integer.parseInt(negColourOverrideRGB[1]), Integer.parseInt(negColourOverrideRGB[2]));
 		}
 		currencySymbol = templateDefinition.getString("currencySymbol", "S$");
+		precision = templateDefinition.getInt("precision", 0);
 	}
 
 	public void stampOnCanvas(PdfContentByte canvas, Map<String, Object> templateData){
@@ -69,7 +70,7 @@ public class StampedCurrency extends StampedElement {
 			DecimalFormatSymbols dfs = new DecimalFormatSymbols();
 			dfs.setCurrencySymbol(currencySymbol);
 			dfs.setGroupingSeparator(',');
-			formattedCurrency.setMaximumFractionDigits(0);
+			formattedCurrency.setMaximumFractionDigits(precision);
 			((DecimalFormat) formattedCurrency).setDecimalFormatSymbols(dfs);
 			stampedStr = formattedCurrency.format(val);
 		}
