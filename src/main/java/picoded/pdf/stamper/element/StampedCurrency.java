@@ -59,7 +59,7 @@ public class StampedCurrency extends StampedElement {
 			stampedStr = "";
 			font = FontFactory.getFont(fontAlias, "UTF-8", true, textSize, java.awt.Font.PLAIN, Color.BLACK);
 		}else{
-			int val = picoded.core.conv.GenericConvert.toInt(templateData.get(key()));
+			float val = picoded.core.conv.GenericConvert.toFloat(templateData.get(key()));
 
 			font = val < 0 ?
 				FontFactory.getFont(fontAlias, "UTF-8", true, textSize, java.awt.Font.PLAIN, negativeValueColour)
